@@ -39,13 +39,13 @@ struct notifier_block nb = {
 
 static struct omap_mbox *mbox;
 
-static void __exit mytest_cleanup(void) 
+static void __exit mbox_test_cleanup(void) 
 {
 	if (mbox)
 		omap_mbox_put(mbox, &nb);
 }
 
-static int __init mytest_init(void) 
+static int __init mbox_test_init(void) 
 {
 	int i, r, ret = 0;
 
@@ -73,5 +73,5 @@ out:
 	return ret;
 }
 
-module_init(mytest_init);
-module_exit(mytest_cleanup);
+module_init(mbox_test_init);
+module_exit(mbox_test_cleanup);
