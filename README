@@ -1,0 +1,13 @@
+Simple loopback message test for mailbox.
+
+**NOTE**  Kernel patch required due to mailbox API limitation
+
+On OMAP3, only one mailbox is created with settings hard-coded for
+MPU -> DSP messages.
+
+The pach 'omap3-mailbox-loopack.patch' changes the hard-coded settings
+so that the MPU is the receiver of the messages so a simple loopback
+test can be done.
+
+An API should be created to the message receiver can be configured at
+runtime.
