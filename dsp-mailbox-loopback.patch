@@ -1,0 +1,58 @@
+From 281396327aba221e360dfc791a4bc85cfe68d2dd Mon Sep 17 00:00:00 2001
+From: Kevin Hilman <khilman@ti.com>
+Date: Fri, 11 Feb 2011 11:16:26 -0800
+Subject: [PATCH 1/3] OMAP2+: mailbox: convert DSP mailbox to MPU loopback
+
+Change the hard-coded settings of the default "dsp" mailbox so that
+the MPU is the receiver.  This permits a simple loopback test without
+any DSP software running.
+
+Absolutely-Not-Signed-off-by: Kevin Hilman <khilman@ti.com>
+
+The real solution to this is to have a mailbox API so that the
+receiver of the messages is configurable at runtime.
+---
+ arch/arm/mach-omap2/mailbox.c |   12 ++++++------
+ 1 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/arch/arm/mach-omap2/mailbox.c b/arch/arm/mach-omap2/mailbox.c
+index 29b9dc3..b4cd2aa 100644
+--- a/arch/arm/mach-omap2/mailbox.c
++++ b/arch/arm/mach-omap2/mailbox.c
+@@ -289,13 +289,13 @@ static struct omap_mbox2_priv omap2_mbox_dsp_priv = {
+ 		.fifo_stat	= MAILBOX_FIFOSTATUS(0),
+ 	},
+ 	.rx_fifo = {
+-		.msg		= MAILBOX_MESSAGE(1),
+-		.msg_stat	= MAILBOX_MSGSTATUS(1),
++		.msg		= MAILBOX_MESSAGE(0),
++		.msg_stat	= MAILBOX_MSGSTATUS(0),
+ 	},
+ 	.irqenable	= MAILBOX_IRQENABLE(0),
+ 	.irqstatus	= MAILBOX_IRQSTATUS(0),
+ 	.notfull_bit	= MAILBOX_IRQ_NOTFULL(0),
+-	.newmsg_bit	= MAILBOX_IRQ_NEWMSG(1),
++	.newmsg_bit	= MAILBOX_IRQ_NEWMSG(0),
+ 	.irqdisable	= MAILBOX_IRQENABLE(0),
+ };
+ 
+@@ -345,13 +345,13 @@ static struct omap_mbox2_priv omap2_mbox_1_priv = {
+ 		.fifo_stat	= MAILBOX_FIFOSTATUS(0),
+ 	},
+ 	.rx_fifo = {
+-		.msg		= MAILBOX_MESSAGE(1),
+-		.msg_stat	= MAILBOX_MSGSTATUS(1),
++		.msg		= MAILBOX_MESSAGE(0),
++		.msg_stat	= MAILBOX_MSGSTATUS(0),
+ 	},
+ 	.irqenable	= OMAP4_MAILBOX_IRQENABLE(0),
+ 	.irqstatus	= OMAP4_MAILBOX_IRQSTATUS(0),
+ 	.notfull_bit	= MAILBOX_IRQ_NOTFULL(0),
+-	.newmsg_bit	= MAILBOX_IRQ_NEWMSG(1),
++	.newmsg_bit	= MAILBOX_IRQ_NEWMSG(0),
+ 	.irqdisable	= OMAP4_MAILBOX_IRQENABLE_CLR(0),
+ };
+ 
+-- 
+1.7.4
+

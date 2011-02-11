@@ -2,6 +2,9 @@ Simple loopback message test for mailbox.
 
 **NOTE**  Kernel patch required due to mailbox API limitation
 
+
+Kernel Patch
+============
 On OMAP3, only one mailbox is created with settings hard-coded for
 MPU -> DSP messages.
 
@@ -11,3 +14,26 @@ test can be done.
 
 An API should be created to the message receiver can be configured at
 runtime.
+
+
+Usage
+=====
+Check what mailboxes are available on this platform.  For example, on OMAP3:
+
+# ls /sys/devices/platform/omap-mailbox/mbox
+dsp 
+#
+
+Load the test module using the 'name=' command-line argument
+with the name of one of the mailboxes shown.  
+
+Since the kernel patch above changed the 'dsp' mailbox into the
+loopback mailbox, use that one:
+
+# insmod ./mytest.ko name=dsp
+
+By default, the test will send 16 test messages with an incremeting number
+as the message.  The number of messages can be changed with the 'count=' 
+command-line option at module load time.
+
+
