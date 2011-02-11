@@ -8,7 +8,7 @@ Kernel Patch
 On OMAP3, only one mailbox is created with settings hard-coded for
 MPU -> DSP messages.
 
-The pach 'omap3-mailbox-loopack.patch' changes the hard-coded settings
+The pach 'dsp-mailbox-loopack.patch' changes the hard-coded settings
 so that the MPU is the receiver of the messages so a simple loopback
 test can be done.
 
